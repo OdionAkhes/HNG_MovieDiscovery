@@ -1,4 +1,6 @@
 /** @format */
+import React from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTwitter,
@@ -11,34 +13,46 @@ const Footer = () => {
   return (
     <footer className="text-black p-4 flex flex-col items-center">
       <div className="mb-4 flex space-x-4">
-        <a href="#" className="hover:text-gray-400 flex items-center space-x-2">
+        <Link
+          to="/twitter"
+          className="hover:text-gray-400 flex items-center space-x-2"
+        >
           <FontAwesomeIcon icon={faTwitter} />
-
-        </a>
-        <a href="#" className="hover:text-gray-400 flex items-center space-x-2">
+ 
+        </Link>
+        <Link
+          to="/facebook"
+          className="hover:text-gray-400 flex items-center space-x-2"
+        >
           <FontAwesomeIcon icon={faFacebook} />
 
-        </a>
-        <a href="#" className="hover:text-gray-400 flex items-center space-x-2">
+        </Link>
+        <Link
+          to="/instagram"
+          className="hover:text-gray-400 flex items-center space-x-2"
+        >
           <FontAwesomeIcon icon={faInstagram} />
-     
-        </a>
-        <a href="#" className="hover:text-gray-400 flex items-center space-x-2">
+
+        </Link>
+        <Link
+          to="/youtube"
+          className="hover:text-gray-400 flex items-center space-x-2"
+        >
           <FontAwesomeIcon icon={faYoutube} />
-  
-        </a>
+     
+        </Link>
       </div>
 
       <div className="flex flex-wrap justify-center mb-4 space-x-4">
-        <a href="#" className="hover:text-gray-400">
+        <Link to="/conditions-of-use" className="hover:text-gray-400">
           Conditions of Use
-        </a>
-        <a href="#" className="hover:text-gray-400">
+        </Link>
+        <Link to="/privacy-policy" className="hover:text-gray-400">
           Privacy & Policy
-        </a>
-        <a href="#" className="hover:text-gray-400">
+        </Link>
+        <Link to="/press-room" className="hover:text-gray-400">
           Press Room
-        </a>
+        </Link>
       </div>
 
       <p className="mt-4">&copy; Moviebox by akhetuamhen odion</p>

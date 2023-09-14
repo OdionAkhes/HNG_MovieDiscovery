@@ -9,7 +9,7 @@ import {
   faFilm,
   faTv,
   faCalendarAlt,
-  faPlayCircle,
+
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
