@@ -45,3 +45,18 @@ export const searchMovies = async (query) => {
     throw error;
   }
 };
+
+export const fetchHeroMovie = async () => {
+  try {
+    const heroMovieTitle = "John Wick 3"; 
+    const results = await searchMovies(heroMovieTitle);
+
+    if (results && results.length) {
+      return results[0]; 
+    }
+    throw new Error("Hero movie not found");
+  } catch (error) {
+    console.error("Failed to fetch hero movie", error);
+    throw error;
+  }
+};
