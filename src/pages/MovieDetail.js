@@ -1,16 +1,14 @@
 /** @format */
 
-// MovieDetail.js
 import React, { useState, useEffect } from "react";
 import { fetchMovieDetails, fetchTopRatedMovies } from "../api/tmdb";
-import { useGlobalContext } from "../GlobalContext";
 import { useParams } from "react-router-dom";
+import { FaList, FaStar } from "react-icons/fa";
 
 const MovieDetail = () => {
-  const { id: movieId } = useParams(); // Getting movieId directly from the URL params
+  const { id: movieId } = useParams();
   const [movieDetails, setMovieDetails] = useState({});
   const [topRatedMovies, setTopRatedMovies] = useState([]);
-  const { addToFavorites, removeFromFavorites, favorites } = useGlobalContext();
 
   useEffect(() => {
     async function loadMovieDetails() {
@@ -35,98 +33,81 @@ const MovieDetail = () => {
     loadTopRatedMovies();
   }, [movieId]);
 
-  const isFavorite = favorites.some((fav) => fav.id === movieDetails.id);
-
- 
-
   return (
-    <div className="container mx-auto mt-10 p-8">
-   
+    <div className="container mx-auto mt-10 px-8">
       <div className="relative mb-8">
-      
         <div className="h-64 w-full bg-gray-200"></div>
         <button className="absolute bottom-4 left-4 bg-black text-white py-1 px-4 rounded">
-          Watch Trailer
+          <span>🔍</span> Watch Trailer
         </button>
       </div>
-      
-      <div className="flex">
 
+      <div className="flex">
         <div className="w-2/3 pr-4">
-          <h1 className="text-2xl font-bold mt-4">
-            {movieDetails.title} (
-            {new Date(movieDetails.release_date).getFullYear()})
-          </h1>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="inline text-xl">
+                {movieDetails.title} (
+                {new Date(movieDetails.release_date).getFullYear()})
+              </h1>
+              <span className="ml-2 text-red-500">
+                {movieDetails.genres?.map((genre) => (
+                  <span key={genre.id} className="mr-2">
+                    {genre.name}
+                  </span>
+                ))}
+              </span>
+            </div>
+            <div className="flex items-center">
+              <FaStar className="text-yellow-400 mr-1" />
+              {movieDetails.vote_average}
+            </div>
+          </div>
+
           <p>PG · {movieDetails.runtime} min</p>
 
-          <div className="text-red-500 my-2">
-            {movieDetails.genres?.map((genre) => (
-              <span key={genre.id} className="mr-2">{genre.name}</span>
-            ))}
-          </div>
-
-
-          <div className="mb-4">
-            <p>{movieDetails.overview}</p>
-          </div>
-
-
-          <div>
-     
-            <p>Director: [Director's Name]</p>
-            <p>Writers: [Writer's Names]</p>
-            <p>Stars: [Star Names]</p>
-          </div>
-
-     
+       <div className="mt-2">
+  <p>Director: {movieDetails.director}</p>
+  <p>Writers: {movieDetails.writers}</p>
+  <p>Stars: {movieDetails.stars}</p>
+</div>
           <div className="mt-4">
-            <p>Top rated movie #65</p>
-            <p>Awards: 9 nominations</p>
+            <button className="bg-red-500 text-white py-1 px-4 mr-2 rounded">
+              Top rated movie #65
+            </button>
+            <select className="border bg-white rounded py-1 px-4">
+              <option>Awards: 9 nominations</option>
+              {/* Other options can be added here */}
+            </select>
           </div>
         </div>
 
-
         <div className="w-1/3">
-  
           <div className="mb-4">
-            <p className="font-bold text-xl">
-              {movieDetails.vote_average} / 10
-            </p>
-            <p>{movieDetails.popularity} views</p>
-          </div>
-
-
-          <div className="mb-4">
-            <button className="bg-blue-600 text-white py-2 px-4 mb-2 rounded block w-full">
+            <button className="bg-red-600 text-white py-2 px-4 mb-2 rounded block w-full">
               See Showtimes
             </button>
-            <button className="bg-gray-200 py-2 px-4 rounded block w-full">
+            <button className="bg-gray-200 py-2 px-4 rounded block w-full flex items-center">
+              <FaList className="mr-2" />
               More Watch Options
             </button>
           </div>
 
-     
-          <div className="bg-gray-100 p-4 rounded">
-            <h2 className="font-bold mb-4">Best movies and shows in September</h2>
-            <ul>
+          <div className="bg-gray-100 p-4 rounded relative">
+            <div className="absolute top-0 left-0 right-0 bg-black bg-opacity-50 py-2 px-4">
+              Best movies and shows in September
+            </div>
+            <div className="flex mt-4">
               {topRatedMovies.slice(0, 3).map((movie) => (
-                <li key={movie.id} className="mb-2">
-                  <span className="mr-2">{movie.title}</span>
-                  <button
-                    className={`px-2 py-1 rounded ${
-                      isFavorite ? "bg-red-600 text-white" : "bg-gray-300"
-                    }`}
-                    onClick={() =>
-                      isFavorite
-                        ? removeFromFavorites(movie)
-                        : addToFavorites(movie)
-                    }
-                  >
-                    {isFavorite ? "Remove" : "Add"}
-                  </button>
-                </li>
+                <div key={movie.id} className="w-1/3 pr-2">
+                  <img
+                    src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                    alt={movie.title}
+                    className="rounded"
+                  />
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -135,9 +116,3 @@ const MovieDetail = () => {
 };
 
 export default MovieDetail;
-
-
-
-
-
-

@@ -16,13 +16,30 @@ const instance = axios.create({
 export const fetchMovieDetails = async (id) => {
   try {
     const response = await instance.get(`/movie/${id}`);
-    return response.data;
+    const creditsResponse = await instance.get(`/movie/${id}/credits`);
 
+    const director = creditsResponse.data.crew.find(
+      (member) => member.job === "Director"
+    );
+
+    const writers = creditsResponse.data.crew.filter(
+      (member) => member.job === "Writer" || member.job === "Screenplay"
+    );
+
+    const stars = creditsResponse.data.cast.slice(0, 3); // Top 3 actors
+
+    return {
+      ...response.data,
+      director: director ? director.name : "N/A",
+      writers: writers.map((writer) => writer.name).join(", "),
+      stars: stars.map((star) => star.name).join(", "),
+    };
   } catch (error) {
     console.error("Failed to fetch movie details", error);
     throw error;
   }
 };
+
 
 export const fetchTopRatedMovies = async () => {
   try {

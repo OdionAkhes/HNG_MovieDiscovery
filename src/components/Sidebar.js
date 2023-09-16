@@ -3,6 +3,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useGlobalContext } from "../GlobalContext";
+import { ReactComponent as Logo } from "../assets/Logo.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome,
@@ -18,11 +19,13 @@ const Sidebar = () => {
 
   return (
     <aside
-      className={`p-4 w-64 fixed top-0 left-0 h-full bg-white transform transition-transform duration-300 ${
+      className={`p-4 w-60 fixed top-0 left-0 h-full bg-white transform transition-transform duration-300 ${
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
-      <button onClick={toggleSidebar}>Hamburger Icon</button>
+      <button onClick={toggleSidebar} className="text-black" >
+        <Logo/>
+      </button>
 
       <NavLink
         to="/"

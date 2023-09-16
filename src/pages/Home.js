@@ -9,10 +9,10 @@ import Footer from "../components/Footer";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ErrorMessage from "../components/ErrorMessage";
 
-const Home = ({toggleSidebar}) => {
+const Home = ({ toggleSidebar }) => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { heroMovie, setHeroMovie } = useGlobalContext(); 
+  const { heroMovie, setHeroMovie } = useGlobalContext();
   useEffect(() => {
     async function fetchData() {
       try {
@@ -28,24 +28,38 @@ const Home = ({toggleSidebar}) => {
     fetchData();
   }, []);
 
+ return (
+   <div className="w-full">
+     <HeroSection movie={heroMovie} />
+     <div className="mt-8 px-4">
+       {" "}
+     
+       <div className="flex justify-between items-center mb-4 px-10 mx-10">
+         <h2 className="text-xl ">Featured Movies</h2>
+         <span className="text-red-500 cursor-pointer hover:underline">
+           See More >
+         </span>
+       </div>
+       {loading ? (
+         <LoadingSpinner />
+       ) : (
+         <div className="flex justify-center">
 
-  return (
-    <div className="">
-      <HeroSection movie={heroMovie} />
-      <div className=" ">
-        {loading ? (
-          <LoadingSpinner />
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {movies.map((movie) => (
-              <MovieCard key={movie.id} movie={movie} />
-            ))}
-          </div>
-        )}
-      </div>
-      <Footer />
-    </div>
-  );
+           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 mb-12 ">
+             {" "}
+
+             {movies.map((movie) => (
+               <div key={movie.id} className="mb-8">
+                 <MovieCard movie={movie} />
+               </div>
+             ))}
+           </div>
+         </div>
+       )}
+     </div>
+     <Footer />
+   </div>
+ );
 };
 
 export default Home;

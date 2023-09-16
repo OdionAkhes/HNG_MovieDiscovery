@@ -2,7 +2,8 @@
 
 import React from "react";
 import { useGlobalContext } from "../GlobalContext";
-
+import { ReactComponent as HamburgerIcon } from "../assets/Menu.svg";
+import { ReactComponent as Logo } from "../assets/Logo.svg";
 const Navbar = () => {
   const { toggleSidebar, searchQuery, setSearchQuery, handleSearch } =
     useGlobalContext();
@@ -14,7 +15,9 @@ const Navbar = () => {
 
   return (
     <div className="flex justify-between items-center px-8 py-4 bg-opacity-50 ">
-      <div className="text-white">Logo</div>
+      <div className="text-white">
+        <Logo/>
+      </div>
 
       <form onSubmit={onSubmit} className="flex-grow mx-4 max-w-lg">
         <input
@@ -27,11 +30,9 @@ const Navbar = () => {
       </form>
 
       <div className="flex items-center space-x-4">
-        <button className="text-white border border-white p-2 rounded">
-          Sign in
-        </button>
+        <button className="text-white p-2 ">Sign in</button>
         <button onClick={toggleSidebar} className="text-white">
-          Hamburger Icon
+          <HamburgerIcon />
         </button>
       </div>
     </div>

@@ -41,7 +41,7 @@ const MovieCard = ({ movie }) => {
       >
         <i
           className={`fa ${
-            isFavorited ? "fa-heart text-red-500" : "fa-heart-o text-gray-400"
+            isFavorited ? "fa fa-heart text-red-500" : "fa-heart-o text-gray-400"
           }`}
         />
       </div>
